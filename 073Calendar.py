@@ -32,25 +32,48 @@
 # Wednesday
 # Thursday
 
-week = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
-n = int(input())
-for _ in range(n):
-    y, m, d = map(int, input().split())
-    if m < 1 or m > 12:
-        print('Illegal')
-    elif d < 1 or d > 31:
-        print('Illegal')
-    elif m in [4, 6, 9, 11] and d > 30:
-        print('Illegal')
-    elif m == 2 and d > 29:
-        print('Illegal')
-    elif m == 2 and d == 29 and y % 4 != 0:
-        print('Illegal')
-    else:
-        if m < 3:
-            m += 12
-            y -= 1
-        w = (y + y // 4 + y // 400 - y // 100 + (13 * (m + 1)) // 5 + d) % 7  # 基姆拉尔森公式
-        # print(week[(w + 6) % 7])  # 和基姆拉尔森公式有一点儿偏差，所以要加6再取余，原因不明
-        print(week[w])
 
+# week = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+# n = int(input())
+# for _ in range(n):
+#     y, m, d = map(int, input().split())
+#     if m < 1 or m > 12:
+#         print('Illegal')
+#     elif d < 1 or d > 31:
+#         print('Illegal')
+#     elif m in [4, 6, 9, 11] and d > 30:
+#         print('Illegal')
+#     elif m == 2 and d > 29:
+#         print('Illegal')
+#     elif m == 2 and d == 29 and y % 4 != 0:
+#         print('Illegal')
+#     else:
+#         if m < 3:
+#             m += 12
+#             y -= 1
+#         w = (y + y // 4 + y // 400 - y // 100 + (13 * (m + 1)) // 5 + d) % 7  # 基姆拉尔森公式
+#         # print(week[(w + 6) % 7])  # 和基姆拉尔森公式有一点儿偏差，所以要加6再取余，原因不明
+#         print(week[w])
+
+
+# PPT题，周日输出0，周一输出1，周二输出2，周三输出3，周四输出4，周五输出5，周六输出6
+# 2012年1月22日是星期天
+# 利用天数差值和7取余，得到星期几
+# sample:
+# 2015 11 02
+# 1
+monthDays = [-1, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+days = 0
+y, m, d = map(int, input().split())
+for i in range(2012, y):
+    if i % 4 == 0 and i % 100 != 0 or i % 400 == 0:
+        days += 366
+    else:
+        days += 365
+if y % 4 == 0 and y % 100 != 0 or y % 400 == 0:
+    monthDays[2] = 29
+for i in range(1, m):
+    days += monthDays[i]
+days += d
+days -= 22
+print(days % 7)
