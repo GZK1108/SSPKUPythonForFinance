@@ -111,3 +111,17 @@ def search_room():
     else:
         print("房间不存在")
     input("按任意键返回")
+
+
+def file_write():
+    with open("rooms.txt", "w", encoding="utf-8") as f:
+        for room_id, room in rooms.items():
+            f.write(f"{room_id},{room.room_type},{room.room_price},{room.room_status}\n")
+
+
+def file_read():
+    with open("rooms.txt", "r", encoding="utf-8") as f:
+        for line in f:
+            room_id, room_type, room_price, room_status = line.strip().split(",")
+            room = Room(room_id, room_type, float(room_price), room_status)
+            rooms[room_id] = room
