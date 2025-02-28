@@ -1,5 +1,4 @@
-s = 11
-# 3x4
-x = s % 4
-y = s // 4
-print(x, y)
+import numpy as np
+
+policy = np.random.rand(25, 5)
+policy /= policy.sum(axis=1)[:, np.newaxis]
